@@ -55,6 +55,8 @@ void input(player *s)
 void output(player *s)
 {
     int i;
+    for(i=0;i<=s[0].f;i++)
+    {
     cout<<"第"<<i+1<<"学生";
     cout<<"姓名是：";
     cout<<s[i].name<<endl;
@@ -68,8 +70,40 @@ void output(player *s)
     cout<<s[i].Class<<endl;
     cout<<"电话号：";
     cout<<s[i].tel<<endl;
+    }
+}
+void input(rater *r)
+{
+     int i;
+    for(i=0; i<5; i++)
+    {
+        cout<<"请输入第"<<i+1<<"号裁判的姓名:";
+        cin>>r[i].name;
+        cout<<"请输入第"<<i+1<<"号裁判的性别:";
+        cin>>r[i].sex;
+        cout<<"请输入第"<<i+1<<"号裁判的电话号:";
+        cin>>r[i].tel;
+    }
+}
+void output(rater *r)
+{
+    int i;
+    
+    cout<<"第一个评委"<<r[0].name<<"的打分为：";
+    cout<<"第二个评委"<<r[1].name<<"的打分为：";
+    cout<<"第三个评委"<<r[2].name<<"的打分为：";
+    cout<<"第四个评委"<<r[3].name<<"的打分为：";
+    cout<<"第五个评委"<<r[4].name<<"的打分为：";
+    cout<<"去掉一个最低成绩为：";
+    cout<<"去掉一个最高成绩为：";
+    cout<<"平均分是：";
 }
 int main()
 {
-    
+    struct player s[100];
+    struct rater r[100];
+    input(s);
+    input(r);
+    output(s);
+    output(r);
 }

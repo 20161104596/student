@@ -143,6 +143,7 @@ int mark(player *s)
             cin>>s[n-1].score[3];
             cout<<"请输入第五个裁判打的分数:";
             cin>>s[n-1].score[4];
+            s[n-1].sum=s[n-1].score[0]+s[n-1].score[1]+s[n-1].score[2]+s[n-1].score[3]+s[n-1].score[4];
             flag=0;
         }
     }
@@ -152,8 +153,6 @@ int mark(player *s)
 int average(player *s)
 {
     int i,j;
-    s[i].sum=0;
-    s[i].average=0;
     for(i=0;i<c;i++)
     {
         s[i].max=s[i].score[0];

@@ -32,6 +32,7 @@ struct rater
     string sex;
     string tel;
 };
+
 void inputs(player *s)
 {
     int n;
@@ -75,7 +76,7 @@ void outputs(player *s)
     cout<<s[i].tel<<endl;
     }
 }
-void inputr(player *r)
+void inputr(rater *r)
 {
     int i;
     cout<<"请分别输入五位裁判信息:"<<endl;
@@ -92,7 +93,7 @@ void inputr(player *r)
     cout<<"裁判信息录入成功!"<<endl;
 
 }
-void outputr(player *r)
+void outputr(rater *r)
 {
     int i;
     for(i=0;i<5;i++)

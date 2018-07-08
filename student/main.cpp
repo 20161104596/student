@@ -288,7 +288,7 @@ void read(player *s)//写入文件函数
 {
     int i;
     FILE* fp;
-    fp = fopen("//Users//apple//Desktop//wyb.csv","w");
+    fp = fopen("//Users//wyb//Desktop//student//wyb.csv","w");
     if(fp == NULL)
         cout<<("The file is full!\n")<<endl;
     else
@@ -313,11 +313,11 @@ int menu_select()
     cout<<"    -----4.计算裁判评分-----          "<<endl;
     cout<<"    -----5.显示裁判评分-----       "<<endl;
     cout<<"    -----6.按平均分排序-----       "<<endl;
-    cout<<"    -----7.读取信息-----       "<<endl;
+    cout<<"    -----7.保存信息-----       "<<endl;
     cout<<"    -----8.退出系统-----       "<<endl;
     do
     {
-        cout<<"请输入选项(0-6:)"<<endl;
+        cout<<"请输入选项(0-8:)"<<endl;
         cin>>MenuItem;
     }while(MenuItem<0||MenuItem>9);
     return MenuItem;

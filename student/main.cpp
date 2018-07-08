@@ -36,21 +36,23 @@ struct rater
 void inputs(player *s)
 {
     int n;
-    cout<<"请输入参赛者人数";
+    cout<<"请输入参赛者人数"<<endl;
     cin>>n;
     for(int i=0; i<n; i++)
     {
-        cout<<"请输入姓名：";
+        cout<<"请输入编号:"<<endl;
+        cin>>s[i].id;
+        cout<<"请输入姓名："<<endl;
         cin>>s[i].name;
-        cout<<"请输入性别：";
+        cout<<"请输入性别："<<endl;
         cin>>s[i].sex;
-        cout<<"请输入节目名称：";
+        cout<<"请输入节目名称："<<endl;
         cin>>s[i].Program;
-        cout<<"请输入表演形式：";
+        cout<<"请输入表演形式："<<endl;
         cin>>s[i].form;
-        cout<<"请输入班级：";
+        cout<<"请输入班级："<<endl;
         cin>>s[i].Class;
-        cout<<"请输入电话号:";
+        cout<<"请输入电话号:"<<endl;
         cin>>s[i].tel;
         c++;
     }
@@ -58,22 +60,22 @@ void inputs(player *s)
 void outputs(player *s)
 {
     int i;
-    for(i=0;i<=c;i++)
+    for(i=0;i<c;i++)
     {
-    cout<<"参赛者编号:";
-    cout<<s[i].id<<endl;
-    cout<<"姓名是：";
-    cout<<s[i].name<<endl;
-    cout<<"性别：";
-    cout<<s[i].sex<<endl;
-    cout<<"节目名称：";
-    cout<<s[i].Program<<endl;
-    cout<<"表演形式：";
-    cout<<s[i].form<<endl;
-    cout<<"班级：";
-    cout<<s[i].Class<<endl;
-    cout<<"电话号：";
-    cout<<s[i].tel<<endl;
+        cout<<"参赛者编号:";
+        cout<<s[i].id<<endl;
+        cout<<"姓名是：";
+        cout<<s[i].name<<endl;
+        cout<<"性别：";
+        cout<<s[i].sex<<endl;
+        cout<<"节目名称：";
+        cout<<s[i].Program<<endl;
+        cout<<"表演形式：";
+        cout<<s[i].form<<endl;
+        cout<<"班级：";
+        cout<<s[i].Class<<endl;
+        cout<<"电话号：";
+        cout<<s[i].tel<<endl;
     }
 }
 void inputr(rater *r)
@@ -91,7 +93,7 @@ void inputr(rater *r)
         
     }
     cout<<"裁判信息录入成功!"<<endl;
-
+    
 }
 void outputr(rater *r)
 {
@@ -105,9 +107,9 @@ void outputr(rater *r)
         cout<<"电话号:";
         cout<<r[i].tel<<endl;
     }
-
+    
 }
-int mark(player *s)
+void mark(player *s)
 {
     int i,n;
     int flag=1;
@@ -115,16 +117,23 @@ int mark(player *s)
     {
         cout<<"请输入要评分的参赛者编号:"<<endl;
         cin>>n;
-        for (i=0; i<c;)
+        if(n!=-1)
         {
-            if (s[i].id!=n)
+            for (i=0; i<c;)
             {
-                i++;
+                if (s[i].id!=n)
+                {
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
-            {
-                break;
-            }
+        }
+        else
+        {
+            cout<<"输入错误,请重新选择!"<<endl;
         }
         if(i>=c||n<=0)
         {
@@ -143,12 +152,10 @@ int mark(player *s)
             cin>>s[n-1].score[3];
             cout<<"请输入第五个裁判打的分数:";
             cin>>s[n-1].score[4];
-            s[n-1].sum=s[n-1].score[0]+s[n-1].score[1]+s[n-1].score[2]+s[n-1].score[3]+s[n-1].score[4];
             flag=0;
         }
     }
     cout<<"裁判评分成功!"<<endl;
-    return 0;
 }
 int average(player *s)
 {
@@ -182,8 +189,8 @@ int show(player *s,rater *r)
     for(i=0;i<c;i++)
     {
         cout<<"参赛者姓名为:"<<s[i].name<<endl;
-        cout<<"编号:"<<s[i].id<<endl;
-        cout<<"性别:"<<s[i].sex<<endl;
+        cout<<"参赛者编号:"<<s[i].id<<endl;
+        cout<<"参赛者性别:"<<s[i].sex<<endl;
         cout<<"节目名称:"<<s[i].Program<<endl;
         cout<<"节目类别:"<<s[i].form<<endl;
         cout<<"电话:"<<s[i].tel<<endl;
@@ -252,6 +259,50 @@ int output(player *s,rater *r)
     }
     return MenuItem;
 }
+void sort(player *s)
+{
+    int i,j;
+    struct player temp;
+    for(i=0;i<c;i++)
+    {
+        for(j=0;j<c-i;j++)
+        {
+            if(s[j].average<s[j+1].average)
+            {
+                temp=s[j];
+                s[j]=s[j+1];
+                s[j+1]=temp;
+            }
+        }
+    }
+    for(i=0;i<c;i++)
+    {
+        cout<<"编号:"<<s[i].id<<endl;
+        cout<<"参赛者姓名为:"<<s[i].name<<endl;
+        cout<<"所得的平均成绩是:";
+        cout<<s[i].average<<endl;
+    }
+    cout<<"参赛者排序成功!"<<endl;
+}
+void read(player *s)//写入文件函数
+{
+    int i;
+    FILE* fp;
+    fp = fopen("//Users//apple//Desktop//wyb.csv","w");
+    if(fp == NULL)
+        cout<<("The file is full!\n")<<endl;
+    else
+    {
+        fprintf(fp,"学生编号,学生姓名,性别,节目名称,节目类别,电话,班级,第一位评委分数,第二位评委分数,第三位评委分数,第四位评委分数,第五位评委分数,总分,最高分,最低分,平均分,\n");
+        for(i=0 ;i<c; i++)
+        {
+            fprintf(fp,"%d,%s,%s,%s,%s,%s,%s,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",
+                    s[i].id,s[i].name.c_str(),s[i].sex.c_str(),s[i].Program.c_str(),s[i].form.c_str(),s[i].tel.c_str(),s[i].Class.c_str(),s[i].score[0],s[i].score[1],s[i].score[2],s[i].score[3],s[i].score[4],s[i].sum,s[i].max,s[i].min,s[i].average);
+        }
+        cout<<("信息保存成功!\n")<<endl;
+        fclose(fp);
+    }
+}
 int menu_select()
 {
     int MenuItem;
@@ -261,10 +312,12 @@ int menu_select()
     cout<<"    -----3.裁判评分-----          "<<endl;
     cout<<"    -----4.计算裁判评分-----          "<<endl;
     cout<<"    -----5.显示裁判评分-----       "<<endl;
-    cout<<"    -----6.退出系统-----       "<<endl;
+    cout<<"    -----6.按平均分排序-----       "<<endl;
+    cout<<"    -----7.读取信息-----       "<<endl;
+    cout<<"    -----8.退出系统-----       "<<endl;
     do
     {
-        cout<<"请输入选项(0-5:)"<<endl;
+        cout<<"请输入选项(0-6:)"<<endl;
         cin>>MenuItem;
     }while(MenuItem<0||MenuItem>9);
     return MenuItem;
@@ -293,6 +346,13 @@ int main()
                 show(s,r);
                 break;
             case 6:
+                sort(s);
+                break;
+            case 7:
+                read(s);
+                break;
+                
+            case 8:
                 cout<<"谢谢使用!"<<endl;
                 return 0;
         }
